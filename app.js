@@ -6,22 +6,25 @@ const mongoose = require("mongoose")
 
 let campgroundSchema = new mongoose.Schema({
     name: String,
-    image: String
+    image: String,
+    description: String
 });
 
 let Campground = mongoose.model("Campground", campgroundSchema);
 
-// Campground.create(
-//     {name: 'Granite Hill', image: 'https://images.freeimages.com/images/large-previews/a25/empty-campground-1442093.jpg'
-// }
-//     , function(err, campground){
-//         if(err){
-//             console(err);
-//         } else {
-//             console.log("NEWLY CREATED CAMPGROUND: ");
-//             console.log (campground);
-//         }
-//     });
+Campground.create(
+    {   name: 'Granite Hill', 
+        image: 'https://images.freeimages.com/images/large-previews/a25/empty-campground-1442093.jpg',
+        description: 'This is a huge granit hill.'
+}
+    , function(err, campground){
+        if(err){
+            console(err);
+        } else {
+            console.log("NEWLY CREATED CAMPGROUND: ");
+            console.log (campground);
+        }
+    });
 
 let campgrounds = [
     {name: 'Salmon Creek', image: 'https://images.freeimages.com/images/large-previews/e4c/camping-tent-1058140.jpg'},
@@ -67,6 +70,10 @@ app.post("/campgrounds", function(req, res){
 
 app.get('/campgrounds/new', function(req, res){
     res.render('new.ejs');
+});
+
+app.get("/campgrounds/:id", function(req, res){
+    res.send("THIS WILL BE THE SHOW PAGE.");
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

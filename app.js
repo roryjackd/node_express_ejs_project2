@@ -2,15 +2,10 @@ const express = require('express');
 const app = express();
 const bodyParser = require("body-parser");
 const port = 3000;
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+const Campground = require("./models/campgrounds")
 
-let campgroundSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    description: String
-});
 
-let Campground = mongoose.model("Campground", campgroundSchema);
 
 // Campground.create(
 //     {   name: 'Granite Hill', 

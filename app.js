@@ -3,7 +3,8 @@ const app = express();
 const bodyParser = require("body-parser");
 const port = 3000;
 const mongoose = require("mongoose");
-const Campground = require("./models/campgrounds")
+const Campground = require("./models/campgrounds");
+const seedDB = require("./seeds")
 
 
 
@@ -32,6 +33,8 @@ let campgrounds = [
     {name: 'Granite Hill', image: 'https://images.freeimages.com/images/large-previews/a25/empty-campground-1442093.jpg'},
     {name: 'Mountains Rest', image: 'https://images.freeimages.com/images/large-previews/fc3/farmington-river-1346136.jpg'}
 ]
+
+seedDB();
 mongoose.connect("mongodb://localhost/campgrounds");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");

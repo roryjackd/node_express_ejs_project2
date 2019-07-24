@@ -6,34 +6,6 @@ const mongoose = require("mongoose");
 const Campground = require("./models/campgrounds");
 const seedDB = require("./seeds")
 
-
-
-// Campground.create(
-//     {   name: 'Granite Hill', 
-//         image: 'https://images.freeimages.com/images/large-previews/a25/empty-campground-1442093.jpg',
-//         description: 'This is a huge granit hill.'
-// }
-//     , function(err, campground){
-//         if(err){
-//             console(err);
-//         } else {
-//             console.log("NEWLY CREATED CAMPGROUND: ");
-//             console.log (campground);
-//         }
-//     });
-
-let campgrounds = [
-    {name: 'Salmon Creek', image: 'https://images.freeimages.com/images/large-previews/e4c/camping-tent-1058140.jpg'},
-    {name: 'Granite Hill', image: 'https://images.freeimages.com/images/large-previews/a25/empty-campground-1442093.jpg'},
-    {name: 'Mountains Rest', image: 'https://images.freeimages.com/images/large-previews/fc3/farmington-river-1346136.jpg'},
-    {name: 'Salmon Creek', image: 'https://images.freeimages.com/images/large-previews/e4c/camping-tent-1058140.jpg'},
-    {name: 'Granite Hill', image: 'https://images.freeimages.com/images/large-previews/a25/empty-campground-1442093.jpg'},
-    {name: 'Mountains Rest', image: 'https://images.freeimages.com/images/large-previews/fc3/farmington-river-1346136.jpg'},
-    {name: 'Salmon Creek', image: 'https://images.freeimages.com/images/large-previews/e4c/camping-tent-1058140.jpg'},
-    {name: 'Granite Hill', image: 'https://images.freeimages.com/images/large-previews/a25/empty-campground-1442093.jpg'},
-    {name: 'Mountains Rest', image: 'https://images.freeimages.com/images/large-previews/fc3/farmington-river-1346136.jpg'}
-]
-
 seedDB();
 mongoose.connect("mongodb://localhost/campgrounds");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -73,7 +45,7 @@ app.get('/campgrounds/new', function(req, res){
 
 // SHOW
 app.get("/campgrounds/:id", function(req, res){
-    Campground.findById(req.params.id, function(err, foundCampground){
+    Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
         if(err){
             console.log(err);
         } else {

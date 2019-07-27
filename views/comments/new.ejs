@@ -5,8 +5,8 @@
         <h1>Add New Comment to <%= campground.name %></h1>
         <div style="width: 30%;">
         <form  action="/campgrounds/<%= campground._id %>/comments" method="POST">
-            <input class="form-control form-group" type="comment[text]" name="name" placeholder="text">
-            <input class="form-control form-group" type="comment[author]" name="image" placeholder="author">
+            <input class="form-control form-group" type="text" name="comment[text]" placeholder="text">
+            <input class="form-control form-group" type="text" name="comment[author]" placeholder="author">
             <button class="btn btn-primary form-group">Submit!</button>
         </form>
         </div>

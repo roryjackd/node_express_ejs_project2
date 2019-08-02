@@ -10,6 +10,17 @@ const Comment = require("./models/comment");
 const User = require("./models/user");
 const seedDB = require("./seeds")
 
+app.use(require("express-session")({
+    secret: "Secret saying.",
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 seedDB();
 mongoose.connect("mongodb://localhost/campgrounds");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -87,6 +98,24 @@ app.post("/campgrounds/:id/comments", function(req, res){
             })
         }
     })  
+});
+
+//AUTH ROUTES
+app.get("/register", function(req, res){
+    res.render("register");
+});
+
+app.post("/register", function(req, res){
+    var newUser = new User({username: req.body.username});
+    User.register(newUser, req.body.password, function(err, user){
+        if(err){
+            console.log(err);
+            return res.render("register");
+        }
+        passport.authenticate("local")(req, res, function(){
+            res.redirect("/campgrounds");
+        });
+    });
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

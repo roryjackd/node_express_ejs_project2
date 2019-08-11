@@ -1,6 +1,6 @@
 let express = require("express");
 let router = express.Router();
-let Campground = require("../models/campgrounds")
+let Campground = require("../models/campgrounds");
 
 
 router.get('/', function(req, res){
@@ -14,7 +14,7 @@ router.get('/', function(req, res){
     });
 });
 
-router.post("/campgrounds", function(req, res){
+router.post("/", function(req, res){
     
     let name = req.body.name;
     let image = req.body.image;

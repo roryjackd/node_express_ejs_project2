@@ -5,6 +5,7 @@ const port = 3000;
 const mongoose = require("mongoose");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
+const methodOverride = require("method-override");
 const Campground = require("./models/campgrounds");
 const Comment = require("./models/comment");
 const User = require("./models/user");
@@ -35,6 +36,7 @@ mongoose.connect("mongodb://localhost/campgrounds");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
+app.use(methodOverride("_method"));
 
 app.use(indexRoutes);
 app.use("/campgrounds", campgroundsRoutes);

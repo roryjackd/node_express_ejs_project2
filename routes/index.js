@@ -25,7 +25,7 @@ router.post("/register", function(req, res){
 
 //LOGIN
 router.get("/login", function(req, res){
-    res.render("login", {message: req.flash("error")});
+    res.render("login");
 });
 
 router.post("/login", passport.authenticate("local", 
@@ -38,14 +38,16 @@ router.post("/login", passport.authenticate("local",
 //LOGOUT
 router.get("/logout", function(req, res){
     req.logout();
+    req.flash("success", "Logged you out.")
     res.redirect("/campgrounds");
-})
+});
 
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
         return next();
     }
+    req.flash("error", "Please login first.");
     res.redirect("/login");
 }
 
-module.exports = router;
+module.exports = router;;
